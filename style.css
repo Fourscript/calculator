@@ -1,0 +1,28 @@
+#display {
+    height: 50px;
+    width: 216px;
+    border: 1px solid grey;
+    margin: 3px;
+}
+
+#data {
+    text-align: right;
+    padding: 7px;
+}
+
+button {
+    padding: 10px;
+    margin: 3px;
+}
+
+.container {
+    display: flex;
+}
+
+.big {
+    width: 106px;
+}
+
+.small {
+    width: 50px;
+}
