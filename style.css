@@ -1,8 +1,11 @@
 #display {
-    height: 76px;
+    height: minmax(76px, auto);
     width: 216px;
     border: 1px solid grey;
     margin: 3px;
+    word-wrap: break-word;
+    word-break: break-all;
+    
 }
 
 #data {
