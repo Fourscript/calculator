@@ -3,13 +3,17 @@ let decimal = false;
 let equation = "";
 let solution = "";
 let listOfOperators = ["+", "-", "*", "/"];
+let newEquation = true;
 
 console.log(number);
 
 function formNumber(value) {
+    newEquation = true;
     if (Number.isInteger(value) == true) {
+        
 
         if (number == 0 && number.slice(-1) != ".") {
+         
             number = value;
         }
         else {
@@ -17,11 +21,11 @@ function formNumber(value) {
         }
     }
     else if (value == "." && decimal == false) {
-            console.log("DID NOT ENTER THE NUMBER THING-- WENT INTO THE DECIMAL ELSE IF");
-            decimal = true;
-            number += value;
-            console.log("\nNumber:\t" + number);
-        }
+        console.log("DID NOT ENTER THE NUMBER THING-- WENT INTO THE DECIMAL ELSE IF");
+        decimal = true;
+        number += value;
+        console.log("\nNumber:\t" + number);
+    }
     document.querySelector("#value").innerHTML = number;
     document.querySelector("#equation").innerHTML = equation;
 
@@ -29,59 +33,86 @@ function formNumber(value) {
 }
 
 function addToEquation(operator) {
-    let replaced = false;
-    let equationLastCharacter = equation.slice(-1);
-    console.log("Slice: " + equationLastCharacter);
 
-    if (equationLastCharacter != false || number != false) {
+    if (newEquation == true) {
+        let replaced = false;
+        let equationLastCharacter = equation.slice(-1);
+        console.log("Slice: " + equationLastCharacter);
 
-        if (listOfOperators.includes(equationLastCharacter)) {
-            
-            if (number != 0) {
+        if (equationLastCharacter != false || number != false) {
+
+            if (listOfOperators.includes(equationLastCharacter)) {
+
+                if (number != 0) {
+                    equation += number + operator;
+                    console.log(equation);
+                    number = "0";
+                    decimal = false;
+                }
+
+                console.log("Length-1 Character: " + equation[equation.length - 1]);
+                equation = equation.replace(equation[equation.length - 1], operator);
+                replaced = true;
+                console.log("New Equation: " + equation);
+                console.log("NUMBER: " + number);
+                console.log(number == "");
+            }
+            else {
                 equation += number + operator;
                 console.log(equation);
                 number = "0";
                 decimal = false;
             }
-
-            console.log("Length-1 Character: " + equation[equation.length - 1]);
-            equation = equation.replace(equation[equation.length - 1], operator);
-            replaced = true;
-            console.log("New Equation: " + equation);
-            console.log("NUMBER: " + number);
-            console.log(number == "");
         }
-        else {
-            equation += number + operator;
-            console.log(equation);
-            number = "0";
-            decimal = false;
+
+
+        document.querySelector("#equation").innerHTML = equation;
+        if (replaced == true) {
+            document.querySelector("#value").innerHTML = eval(equation.slice(equation[equation.length - 1], -1));
         }
     }
-
-    document.querySelector("#equation").innerHTML = equation;
-    if (replaced == true) {
-        document.querySelector("#value").innerHTML = eval(equation.slice(equation[equation.length - 1], -1));
-    }
-
 }
 
 function removeFromEquation() {
-    number = "0";
-    document.querySelector("#value").innerHTML = number;
+
+    if (newEquation == true) {
+        number = "0";
+        document.querySelector("#value").innerHTML = number;
+    }
 }
 
-function clearEverything(){
-    console.log("BEFORE CLEAR === " + number);
-    equation = "";
-    number = "0"
-    document.querySelector("#equation").innerHTML = "CLEARED";
-    document.querySelector("#value").innerHTML = number;
+function clearEverything() {
 
-    console.log("AFTER CLEAR === " + number);
+
+    newEquation = true;
+    // NUMBER 1 on the list
+    if ((document.querySelector("#equation").innerText === "CLEARED" || document.querySelector("#equation").innerText === "") && document.querySelector("#value").innerText === "0") {
+        document.querySelector("#equation").innerHTML = "";
+        document.querySelector("#value").innerHTML = number;
+
+    } else {
+
+
+
+
+        console.log(number)
+
+
+
+        console.log("BEFORE CLEAR === " + number);
+        equation = "";
+        number = "0"
+        document.querySelector("#equation").innerHTML = "CLEARED";
+        document.querySelector("#value").innerHTML = number;
+
+        console.log("AFTER CLEAR === " + number);
+
+    }
 }
 
 function solveEquation() {
+
+    newEquation = false;
 
     if (number == false) {
         if (equation == false) {
